@@ -1,0 +1,36 @@
+
+<my-employeecount [all]="getallemployeecount()"
+                  [male]="getmaleemployeecount()"
+                  [female]="getfemaleemployeecount()"
+                  (countRadioButtonSelectionChanged)="compemployeechange($event)"
+                  >             
+</my-employeecount>
+
+<br>
+<table>
+  <thead>
+    <tr>
+      <th>CODE</th>
+      <th>NAME</th>
+      <th>GENDER</th>
+      <th>SALARY</th>
+      <th>DOB</th>
+
+    </tr>
+  </thead>
+  <tbody>
+   <ng-container *ngFor="let details of employees;" >
+    <tr *ngIf="selectedradiovalue=='All'||selectedradiovalue==details.gender ">
+      <td>{{details.code |uppercase}}</td>
+      <td>{{details.name|custompipe:details.gender|uppercase}}</td>
+      <td>{{details.gender}}</td>
+      <td>{{details.salary|uppercase}}</td>
+      <td>{{details.dob}}</td>
+      </tr>
+   </ng-container>
+      <tr *ngIf="!employees || employees.length==0">
+        <td colspan="6">No Employee details found</td>
+        
+      </tr>
+  </tbody>
+</table>
